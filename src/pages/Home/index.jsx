@@ -12,6 +12,8 @@ import DatePicker from '../../components/DatePicker';
 import { getListData, deleteData, addData, editData, removeDate } from "../../store/actions";
 import { type_form, URL } from "../../constants";
 
+import "./styles.scss";
+
 const Home = (props) => {
   const dispatch = useDispatch();
 
@@ -70,74 +72,77 @@ const Home = (props) => {
 
   return (
     <div className="home">
-      <Button variant="primary" onClick={() => setOpenModal("add")}>
-        Add Todo
-      </Button>
-      {!loading ? (
-        (listData || []).map((item, index) => {
-          return (
-            <Fragment key={index}>
-              <CardItem index={index} data={item} onCheck={handleCheck} onClick={handleOpenModalUpdate} handleRemoveDate={handleRemoveDate} />
-            </Fragment>
-          );
-        })
-      ) : (
-        <h3>Loading ...</h3>
-      )}
-      <Modal show={openModal} onHide={() => setOpenModal(null)}>
-        <Modal.Header closeButton>
-          <Modal.Title>{openModal === "add" ? "Add Modal" : "Edit Modal"}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div className="input-row">
-            <div className="input-item single">
-              <Input
-                title="Title"
-                name="title"
-                value={formData?.title || ""}
-                onChange={(e) => handleInput(e)}
-              />
+      <div className="home-container">
+        <p className="home-title">My Todo List</p>
+        <Button className="add-button" variant="primary" onClick={() => setOpenModal("add")}>
+          Add Todo
+        </Button>
+        {!loading ? (
+          (listData || []).map((item, index) => {
+            return (
+              <Fragment key={index}>
+                <CardItem index={index} data={item} onCheck={handleCheck} onClick={handleOpenModalUpdate} handleRemoveDate={handleRemoveDate} />
+              </Fragment>
+            );
+          })
+        ) : (
+          <h3>Loading ...</h3>
+        )}
+        <Modal show={openModal} onHide={() => setOpenModal(null)}>
+          <Modal.Header closeButton>
+            <Modal.Title>{openModal === "add" ? "Add Modal" : "Edit Modal"}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div className="input-row">
+              <div className="input-item single">
+                <Input
+                  title="Title"
+                  name="title"
+                  value={formData?.title || ""}
+                  onChange={(e) => handleInput(e)}
+                />
+              </div>
+              <div className="input-item single">
+                <Input
+                  title="Type"
+                  name="type"
+                  value={formData?.type || ""}
+                  onChange={(e) => handleInput(e)}
+                />
+              </div>
+              <div className="input-item single">
+                <DatePicker
+                  title="Date"
+                  name="date"
+                  value={formData?.date || ""}
+                  onChange={(e) => handleInput(e)}
+                />
+              </div>
             </div>
-            <div className="input-item single">
-              <Input
-                title="Type"
-                name="type"
-                value={formData?.type || ""}
-                onChange={(e) => handleInput(e)}
-              />
-            </div>
-            <div className="input-item single">
-              <DatePicker
-                title="Date"
-                name="date"
-                value={formData?.date || ""}
-                onChange={(e) => handleInput(e)}
-              />
-            </div>
-          </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button
-            width={100}
-            height={40}
-            variant="secondary"
-            onClick={() => setOpenModal(null)}
-          >
-            Close
-          </Button>
-          <Button
-            width={100}
-            height={40}
-            type="submit"
-            variant="primary"
-            onClick={() =>
-              openModal === "add" ? handleAdd() : handleEdit(formData?.id)
-            }
-          >
-            Save
-          </Button>
-        </Modal.Footer>
-      </Modal>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              width={100}
+              height={40}
+              variant="secondary"
+              onClick={() => setOpenModal(null)}
+            >
+              Close
+            </Button>
+            <Button
+              width={100}
+              height={40}
+              type="submit"
+              variant="primary"
+              onClick={() =>
+                openModal === "add" ? handleAdd() : handleEdit(formData?.id)
+              }
+            >
+              Save
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
     </div>
   );
 };

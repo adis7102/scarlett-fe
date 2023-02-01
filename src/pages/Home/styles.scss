@@ -1,6 +1,19 @@
 .home {
-    .home-title {
-        font-size: 18px;
-        font-weight: 800;
+    display: grid;
+    place-items: center;
+
+    .home-container {
+        width: 50vw;
+
+        .home-title {
+            font-size: 26px;
+            font-weight: 800;
+            margin-bottom: 50px !important;
+        }
+
+        .add-button {
+            margin-bottom: 20px;
+        }
     }
+
 }
