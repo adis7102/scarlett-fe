@@ -7,9 +7,15 @@ import Modal from "react-bootstrap/Modal";
 
 import CardItem from "../../components/CardItem";
 import Input from "../../components/Input";
-import DatePicker from '../../components/DatePicker';
+import DatePicker from "../../components/DatePicker";
 
-import { getListData, deleteData, addData, editData, removeDate } from "../../store/actions";
+import {
+  getListData,
+  deleteData,
+  addData,
+  editData,
+  removeDate,
+} from "../../store/actions";
 import { type_form, URL } from "../../constants";
 
 import "./styles.scss";
@@ -38,50 +44,61 @@ const Home = (props) => {
     cloneForm[name] = value;
 
     setFormData(cloneForm);
-  }
-  
+  };
+
   const handleAdd = () => {
-    dispatch(addData(URL, formData))
+    dispatch(addData(URL, formData));
 
     setOpenModal(null);
     setFormData(type_form);
-  }
+  };
 
   const handleOpenModalUpdate = (index) => {
     setOpenModal("edit");
-    setFormData(listData[index])
-  }
+    setFormData(listData[index]);
+  };
 
   const handleEdit = (id) => {
     dispatch(editData(URL, id, formData));
 
     setOpenModal(null);
     setFormData(type_form);
-  }
+  };
 
   const handleRemoveDate = (index) => {
-    const { id, title, type, status } = listData[index];
+    const { id, title, type } = listData[index];
 
-    dispatch(removeDate(URL, id, {
-      id,
-      title,
-      type,
-      status
-    }))
-  }
+    dispatch(
+      removeDate(URL, id, {
+        id,
+        title,
+        type,
+      })
+    );
+  };
 
   return (
     <div className="home">
       <div className="home-container">
         <p className="home-title">My Todo List</p>
-        <Button className="add-button" variant="primary" onClick={() => setOpenModal("add")}>
+        <Button
+          className="add-button"
+          variant="primary"
+          onClick={() => setOpenModal("add")}
+        >
           Add Todo
         </Button>
         {!loading ? (
           (listData || []).map((item, index) => {
             return (
               <Fragment key={index}>
-                <CardItem index={index} data={item} onCheck={handleCheck} onClick={handleOpenModalUpdate} handleRemoveDate={handleRemoveDate} />
+                <CardItem
+                  index={index}
+                  data={item}
+                  onCheck={handleCheck}
+                  onClick={handleOpenModalUpdate}
+                  handleRemoveDate={handleRemoveDate}
+                />
               </Fragment>
             );
           })
@@ -90,11 +107,13 @@ const Home = (props) => {
         )}
         <Modal show={openModal} onHide={() => setOpenModal(null)}>
           <Modal.Header closeButton>
-            <Modal.Title>{openModal === "add" ? "Add Modal" : "Edit Modal"}</Modal.Title>
+            <Modal.Title>
+              {openModal === "add" ? "Add Modal" : "Edit Modal"}
+            </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <div className="input-row">
-              <div className="input-item single">
+            <div className="input-column">
+              <div className="input-item">
                 <Input
                   title="Title"
                   name="title"
@@ -102,7 +121,7 @@ const Home = (props) => {
                   onChange={(e) => handleInput(e)}
                 />
               </div>
-              <div className="input-item single">
+              <div className="input-item">
                 <Input
                   title="Type"
                   name="type"
@@ -110,7 +129,7 @@ const Home = (props) => {
                   onChange={(e) => handleInput(e)}
                 />
               </div>
-              <div className="input-item single">
+              <div className="input-item">
                 <DatePicker
                   title="Date"
                   name="date"

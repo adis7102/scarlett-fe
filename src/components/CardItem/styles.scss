@@ -18,20 +18,24 @@
     border-radius: 50%;
     border: 1px solid gray;
     margin-right: 1rem;
+    display: grid;
+    place-items: center;
     cursor: pointer;
 
     .check-list-checked {
-        width: 100%;
-        height: 100%;
+        width: 85%;
+        height: 85%;
         border-radius: 50%;
-        background-color: $color-main-purple;
+        background-color: $color-main-green;
     }
   }
 
   &-title {
     font-size: 18px;
     font-weight: 800;
-    margin-right: 2.5rem;
+    margin-right: 2rem;
+    width: 15%;
+    word-wrap: break-word;
   }
 
   &-text {
@@ -40,6 +44,10 @@
     margin-right: 2.5rem;
 
     &.type {
+        color: $color-main-yellow;
+        width: 15%;
+        word-wrap: break-word;
+        margin-right: 1.5rem;
     }
 
     &.date {
@@ -48,10 +56,12 @@
 
     &.edit {
         color: $color-main-purple;
+        cursor: pointer;
     }
 
     &.remove {
         color: $color-flower-red;
+        cursor: pointer;
     }
   }
 }

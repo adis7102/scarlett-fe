@@ -14,6 +14,7 @@ const DatePicker = (props) => {
           name={name}
           onChange={(e) => onChange(e)}
           value={value}
+          required
         />
       </div>
     </div>
